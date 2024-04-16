@@ -1,0 +1,21 @@
+DROP DATABASE IF EXISTS antique_shoes_db;
+USE antique_shoes_db;
+
+DROP TABLE IF EXISTS shoes;
+
+CREATE TABLE shoes (
+    shoe_id INT AUTO_INCREMENT PRIMARY KEY,
+    shoe_name VARCHAR(255) NOT NULL,
+    shoe_price DECIMAL(10, 2) NOT NULL,
+    shoe_size INT NOT NULL,
+    shoe_color VARCHAR(50) NOT NULL,
+    shoe_brand VARCHAR(255) NOT NULL
+);
+
+INSERT INTO shoes (shoe_name, shoe_price, shoe_size, shoe_color, shoe_brand)
+VALUES 
+('Antique Shoe 1', 120.00, 42, 'Black', 'Brand 1'),
+('Antique Shoe 2', 150.00, 43, 'Brown', 'Brand 2'),
+('Antique Shoe 3', 200.00, 44, 'White', 'Brand 3'),
+('Antique Shoe 4', 250.00, 45, 'Blue', 'Brand 4'),
+('Antique Shoe 5', 300.00, 46, 'Red', 'Brand 5');
