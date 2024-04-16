@@ -18,7 +18,7 @@ class Shoes {
 
         $query = "INSERT INTO shoes(shoe_name, shoe_price, shoe_size, shoe_color, shoe_brand) VALUES (?,?,?,?,?)";
 
-        $stmt = mysqli_prepare($this->db->dbc, $query);
+        $stmt = mysqli_prepare($this->db->get_dbc(), $query);
 
         mysqli_stmt_bind_param(
             $stmt,
@@ -37,14 +37,14 @@ class Shoes {
     
     function get_shoes() {
         $query = 'SELECT * FROM shoes;';
-        $result = @mysqli_query($this->db->dbc,$query);
+        $result = @mysqli_query($this->db->get_dbc(),$query);
         return $result;
     }
     
     function get_shoe_by_id($shoe_id) {
         $shoe_id_clean = $this->db->prepare_string($shoe_id);
         $query = "SELECT * FROM shoes WHERE shoe_id = ?";
-        $stmt = mysqli_prepare($this->db->dbc, $query);
+        $stmt = mysqli_prepare($this->db->get_dbc(), $query);
         mysqli_stmt_bind_param($stmt, 's', $shoe_id_clean);
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
@@ -62,7 +62,7 @@ class Shoes {
 
         $query = "UPDATE shoes SET shoe_name = ?, shoe_price = ?, shoe_size = ?, shoe_color = ?, shoe_brand = ? WHERE  shoe_id = ?;";
 
-        $stmt = mysqli_prepare($this->db->dbc, $query);
+        $stmt = mysqli_prepare($this->db->get_dbc(), $query);
 
         mysqli_stmt_bind_param(
             $stmt,
@@ -83,7 +83,7 @@ class Shoes {
     function delete_shoe_by_id($shoe_id) {
         $shoe_id_clean = $this->db->prepare_string($shoe_id);
         $query = "DELETE FROM shoes WHERE shoe_id = ?";
-        $stmt = mysqli_prepare($this->db->dbc, $query);
+        $stmt = mysqli_prepare($this->db->get_dbc(), $query);
         mysqli_stmt_bind_param($stmt, 's', $shoe_id_clean);
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);

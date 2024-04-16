@@ -4,7 +4,7 @@ class DatabaseConnection
 {
     const DB_USER = 'root';
     const DB_PASSWORD = '';
-    const DB_NAME = 'antique_shoes';
+    const DB_NAME = 'antique_shoes_db';
     const DB_HOST = 'localhost';
 
     private $dbc;
@@ -23,17 +23,16 @@ class DatabaseConnection
 
         mysqli_set_charset($this->dbc, 'utf8');
     }
+    function get_dbc()
+    {
+        return $this->dbc;
+    }
 
     function prepare_string($string)
     {
         $string = strip_tags($string);
         $string = mysqli_real_escape_string($this->dbc, trim($string));
         return $string;
-    }
-
-    function get_dbc()
-    {
-        return $this->dbc;
     }
 
 }
