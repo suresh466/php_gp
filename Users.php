@@ -19,8 +19,9 @@ class Users {
 
         $query = "INSERT INTO users(first_name, last_name, email, phone, province, user_type) VALUES (?,?,?,?,?,?)";
 
-        $stmt = mysqli_prepare($this->db->dbc, $query);
+        $stmt = mysqli_prepare($this->db->get_dbc(), $query);
 
+    // check if user is logged in
         mysqli_stmt_bind_param(
             $stmt,
             'ssssss',
@@ -40,7 +41,7 @@ class Users {
     function get_user_by_id($User_id) {
         $user_id_clean = $this->db->prepare_string($User_id);
         $query = "SELECT * FROM users WHERE user_id = ?";
-        $stmt = mysqli_prepare($this->db->dbc, $query);
+        $stmt = mysqli_prepare($this->db->get_dbc(), $query);
         mysqli_stmt_bind_param($stmt, 's', $user_id_clean);
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);

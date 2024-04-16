@@ -1,11 +1,12 @@
 <?php
+session_start();
 // Define variables and initialize with empty values
 $firstName = $lastName = $phoneNumber = $creditCardNumber = $cvv = $street = $city = $state = $zip = "";
 $firstNameErr = $cartErr = $lastNameErr = $phoneNumberErr = $creditCardNumberErr = $cvvErr = $streetErr = $cityErr = $stateErr = $zipErr = "";
 
 // check if user is logged in
 if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
+    header("Location: register.php");
     exit;
 }
 // Check if cart is empty
@@ -19,7 +20,6 @@ require 'db_conn.php';
 require 'Order.php';
 require 'OrderItem.php';
 
-session_start();
 $db = new DatabaseConnection();
 $shoes = new Shoes($db);
 
