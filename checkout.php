@@ -1,10 +1,39 @@
 <?php
 // Define variables and initialize with empty values
 $firstName = $lastName = $phoneNumber = $creditCardNumber = $cvv = $street = $city = $state = $zip = "";
-$firstNameErr = $lastNameErr = $phoneNumberErr = $creditCardNumberErr = $cvvErr = $streetErr = $cityErr = $stateErr = $zipErr = "";
+$firstNameErr = $cartErr = $lastNameErr = $phoneNumberErr = $creditCardNumberErr = $cvvErr = $streetErr = $cityErr = $stateErr = $zipErr = "";
+
+// check if user is logged in
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit;
+}
+// Check if cart is empty
+if (empty($_SESSION['cart'])) {
+    $cartErr = "Your cart is empty. Please add items before checking out.";
+    return;
+}
+
+require 'Shoes.php';
+require 'db_conn.php';
+require 'Order.php';
+require 'OrderItem.php';
+
+session_start();
+$db = new DatabaseConnection();
+$shoes = new Shoes($db);
+
+// Calculate total price of items in the cart 
+$total_price = 0;
+foreach ($_SESSION['cart'] as $shoe_id) {
+    $result = $shoes->get_shoe_by_id($shoe_id);
+    $row = mysqli_fetch_assoc($result);
+    $total_price += $row['shoe_price'];
+}
 
 // Processing form data when form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
     // Validate firstName
     if (empty(trim($_POST["firstName"]))) {
         $firstNameErr = "Please enter your First Name.";
@@ -74,22 +103,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate zip
     if (empty(trim($_POST["zip"]))) {
         $zipErr = "Please enter your Zip.";
-    } elseif (!preg_match("/^[0-9]{5}$/", trim($_POST["zip"]))) {
-        $zipErr = "Invalid Zip, only 5 digits are allowed.";
+    } elseif (!preg_match("/^[a-zA-Z0-9]{5,6}$/", trim($_POST["zip"]))) {
+        $zipErr = "Invalid Zip, only 5 to 6 digits and chars are allowed.";
     } else {
         $zip = trim($_POST["zip"]);
     }
 
+
     // Check input errors before inserting in database
     if (empty($firstNameErr) && empty($lastNameErr) && empty($phoneNumberErr) && empty($creditCardNumberErr) && empty($cvvErr) && empty($streetErr) && empty($cityErr) && empty($stateErr) && empty($zipErr)) {
-        // Insert data into database
-        // ...
+        // insert into order and orderitem tables
+        $db = new DatabaseConnection();
+        $order = new Order($db);
+        $orderItem = new OrderItem($db);
+
+        // Calculate total price of items in the cart
+
+        // Add order
+        $user_id = $_SESSION['user_id']; // Assuming the user id is stored in the session
+        $order->add_order($user_id, $total_price);
+
+        // Get the id of the newly created order
+        $order_id = mysqli_insert_id($db->get_dbc());
+
+        // Add order items
+        foreach ($_SESSION['cart'] as $shoe_id) {
+            $orderItem->add_order_item($order_id, $shoe_id, 1); // Assuming quantity is 1 for each item
+        }
+
+        // Clear the cart
+        $_SESSION['cart'] = array();
     }
 }
 ?>
 
 <!-- HTML form -->
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+    <p><?php echo $cartErr; ?></p>
     <div>
         <label>First Name</label>
         <input type="text" name="firstName" value="<?php echo $firstName; ?>">
@@ -134,6 +184,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <label>Zip</label>
         <input type="text" name="zip" value="<?php echo $zip; ?>">
         <span><?php echo $zipErr; ?></span>
+    </div>
+    <div>
+        <label>Total Price</label>
+        <p><?php echo $total_price; ?></p>
     </div>
     <div>
         <input type="submit" value="Checkout">
