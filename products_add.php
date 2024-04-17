@@ -3,6 +3,8 @@ require 'db_conn.php';
 require 'Shoes.php';
 require 'Categories.php';
 
+include 'admin_navbar.php';
+
 $message = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

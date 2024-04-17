@@ -1,3 +1,7 @@
+<?php
+include 'admin_navbar.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
