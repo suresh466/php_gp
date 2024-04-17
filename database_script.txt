@@ -33,7 +33,8 @@ VALUES
 ('Antique Shoe 2', 150.00, 43, 'Brown', 'Brand 2', 1),
 ('Antique Shoe 3', 200.00, 44, 'White', 'Brand 3', 2),
 ('Antique Shoe 4', 250.00, 45, 'Blue', 'Brand 4', 2),
-('Antique Shoe 5', 300.00, 46, 'Red', 'Brand 5', 3);
+('Antique Shoe 5', 300.00, 46, 'Red', 'Brand 5', 3),
+('Antique Shoe 6', 350.00, 46, 'Yellow', 'Brand 6', 3);
 
 
 

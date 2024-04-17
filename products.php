@@ -7,20 +7,28 @@ require 'categories.php';
 session_start(); // start the session if it hasn't been started yet
 include 'navbar.php';
 
+// Check if a category is selected
+$selected_category_id = null;
+if (isset($_POST['category'])) {
+    // Set a cookie with the selected category
+    setcookie('selected_category', $_POST['category'], time() + (86400 * 30), "/"); // 86400 = 1 day
+    $selected_category_id = $_POST['category'];
+} elseif (isset($_COOKIE['selected_category'])) {
+    $selected_category_id = $_COOKIE['selected_category'];
+}
+
+$db = new DatabaseConnection();
+$shoes = new Shoes($db);
+$result = $shoes->get_shoes($selected_category_id);
+
 if(isset($_POST['shoe_id'])){
     // check if the cart session exists, if not create one
     if(!isset($_SESSION['cart'])){
         $_SESSION['cart'] = array();
     }
-
     // add the product id to the cart session
     array_push($_SESSION['cart'], $_POST['shoe_id']);
 }
-
-$db = new DatabaseConnection();
-$shoes = new Shoes($db);
-$category = isset($_GET['category']) ? $_GET['category'] : null; // get the category from the URL
-$result = $shoes->get_shoes($category);
 
 $categories = new Categories($db);
 $categories_result = $categories->get_categories();
@@ -36,24 +44,25 @@ $categories_result = $categories->get_categories();
 </head>
 <body>
     <h1>Products</h1>
-    <div class="category-filter">
-    <h2>Filter by category</h2>
-    <select onchange="location = this.value;">
-        <option value="products.php">None</option>
-        <?php
-        // Get the category ID from the URL
-        $selected_category_id = isset($_GET['category']) ? $_GET['category'] : null;
-        while ($category = $categories_result->fetch_assoc()):
-            // If the category ID from the URL matches the current category ID, add the 'selected' attribute
-            $selected = $category['category_id'] == $selected_category_id ? 'selected' : '';
-            ?>
-            <option value="products.php?category=<?php echo $category['category_id']; ?>" <?php echo $selected; ?>>
-                <?php echo $category['name']; ?>
-            </option>
-        <?php endwhile; ?>
-    </select>
-</div>
     
+    <div class="category-filter">
+        <h2>Filter by category</h2>
+        <form method="post" action="">
+            <select name="category" onchange="this.form.submit()">
+                <option value="">None</option>
+                <?php
+                while ($category = $categories_result->fetch_assoc()):
+                    // If the category ID from the variable matches the current category ID, add the 'selected' attribute
+                    $selected = $category['category_id'] == $selected_category_id ? 'selected' : '';
+                    ?>
+                    <option value="<?php echo $category['category_id']; ?>" <?php echo $selected; ?>>
+                        <?php echo $category['name']; ?>
+                    </option>
+                <?php endwhile; ?>
+            </select>
+        </form>
+    </div>
+
     <?php
     while ($row = mysqli_fetch_assoc($result)) {
         echo "<h2>" . $row['shoe_name'] . "</h2>";
