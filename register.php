@@ -1,7 +1,6 @@
 <?php
-include 'navbar.php';
-
 session_start();
+include 'navbar.php';
 
 require 'db_conn.php';
 require 'Users.php';

@@ -1,11 +1,11 @@
 <?php
-include 'navbar.php';
 
 require 'db_conn.php';
 require 'Shoes.php';
 require 'categories.php';
 
 session_start(); // start the session if it hasn't been started yet
+include 'navbar.php';
 
 if(isset($_POST['shoe_id'])){
     // check if the cart session exists, if not create one

@@ -1,10 +1,11 @@
 <?php
-include 'navbar.php';
-
-session_start(); // Start the session if it hasn't been started yet
 
 require 'db_conn.php';
 require 'Shoes.php';
+
+session_start(); // Start the session if it hasn't been started yet
+include 'navbar.php';
+
 $db = new DatabaseConnection();
 $shoes = new Shoes($db);
 

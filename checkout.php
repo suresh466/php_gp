@@ -5,9 +5,9 @@ require 'Order.php';
 require 'OrderItem.php';
 require 'Users.php';
 
+session_start();
 include 'navbar.php';
 
-session_start();
 
 $db = new DatabaseConnection();
 $shoes = new Shoes($db);
