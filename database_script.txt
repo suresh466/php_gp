@@ -1,21 +1,76 @@
 DROP DATABASE IF EXISTS antique_shoes_db;
+CREATE DATABASE antique_shoes_db;
 USE antique_shoes_db;
 
-DROP TABLE IF EXISTS shoes;
+-- Create the 'categories' table
+DROP TABLE IF EXISTS CATEGORIES;
+CREATE TABLE categories (
+    category_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL UNIQUE
+);
 
+
+-- create the 'shoes' table
+DROP TABLE IF EXISTS shoes;
 CREATE TABLE shoes (
     shoe_id INT AUTO_INCREMENT PRIMARY KEY,
     shoe_name VARCHAR(255) NOT NULL,
     shoe_price DECIMAL(10, 2) NOT NULL,
     shoe_size INT NOT NULL,
     shoe_color VARCHAR(50) NOT NULL,
-    shoe_brand VARCHAR(255) NOT NULL
+    shoe_brand VARCHAR(255) NOT NULL,
+	category_id INT,
+	FOREIGN KEY (category_id) REFERENCES categories(category_id) ON DELETE CASCADE
 );
 
-INSERT INTO shoes (shoe_name, shoe_price, shoe_size, shoe_color, shoe_brand)
+-- Insert sample categories into the 'categories' table
+INSERT INTO categories (name) VALUES ('cat1'), ('cat2'), ('cat3');
+
+-- insert sample products into the products table
+INSERT INTO shoes (shoe_name, shoe_price, shoe_size, shoe_color, shoe_brand, category_id)
 VALUES 
-('Antique Shoe 1', 120.00, 42, 'Black', 'Brand 1'),
-('Antique Shoe 2', 150.00, 43, 'Brown', 'Brand 2'),
-('Antique Shoe 3', 200.00, 44, 'White', 'Brand 3'),
-('Antique Shoe 4', 250.00, 45, 'Blue', 'Brand 4'),
-('Antique Shoe 5', 300.00, 46, 'Red', 'Brand 5');
+('Antique Shoe 1', 120.00, 42, 'Black', 'Brand 1', 1),
+('Antique Shoe 2', 150.00, 43, 'Brown', 'Brand 2', 1),
+('Antique Shoe 3', 200.00, 44, 'White', 'Brand 3', 2),
+('Antique Shoe 4', 250.00, 45, 'Blue', 'Brand 4', 2),
+('Antique Shoe 5', 300.00, 46, 'Red', 'Brand 5', 3);
+
+
+
+-- Create the 'users' table with new structure
+DROP TABLE IF EXISTS users;
+CREATE TABLE users (
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    phone VARCHAR(20),
+    province ENUM('ON', 'QC', 'BC', 'AB', 'SK', 'MB', 'NS'),
+    user_type ENUM('customer', 'admin') DEFAULT 'customer'
+);
+
+-- Insert sample users into the 'users' table
+INSERT INTO users (first_name, last_name, email, phone, province, user_type) VALUES
+('John', 'Doe', 'john.doe@example.com', '123-456-7890', 'ON', 'customer'),
+('Jane', 'Smith', 'jane.smith@example.com', '987-654-3210', 'BC', 'customer');
+
+-- Create the 'orders' table
+DROP TABLE IF EXISTS orders;
+CREATE TABLE orders (
+    order_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    total_price DECIMAL(10, 2) NOT NULL,
+    order_date DATETIME NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+);
+
+-- Create the 'order_items' table
+DROP TABLE IF EXISTS order_items;
+CREATE TABLE order_items (
+    order_item_id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT,
+    shoe_id INT,
+    quantity INT NOT NULL,
+    FOREIGN KEY (order_id) REFERENCES orders(order_id) ON DELETE CASCADE,
+    FOREIGN KEY (shoe_id) REFERENCES shoes(shoe_id) ON DELETE CASCADE
+);
