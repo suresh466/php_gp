@@ -1,27 +1,40 @@
 <?php
+require 'Shoes.php';
+require 'db_conn.php';
+require 'Order.php';
+require 'OrderItem.php';
+require 'Users.php';
+
 session_start();
+
+$db = new DatabaseConnection();
+$shoes = new Shoes($db);
+
 // Define variables and initialize with empty values
-$firstName = $lastName = $phoneNumber = $creditCardNumber = $cvv = $street = $city = $state = $zip = "";
-$firstNameErr = $cartErr = $lastNameErr = $phoneNumberErr = $creditCardNumberErr = $cvvErr = $streetErr = $cityErr = $stateErr = $zipErr = "";
+$firstName = $lastName = $phoneNumber = $creditCardNumber = $cvv = $street = $city = $province = $zip = "";
+$cartErr = $firstNameErr = $lastNameErr = $phoneNumberErr = $creditCardNumberErr = $cvvErr = $streetErr = $cityErr = $provinceErr = $zipErr = "";
 
 // check if user is logged in
 if (!isset($_SESSION['user_id'])) {
     header("Location: register.php");
     exit;
 }
+else {
+    $users = new Users($db);
+    $user = $users->get_user_by_id($_SESSION['user_id']);
+    if ($user) {
+        $user = $user->fetch_assoc();
+        $firstName = $user['first_name'];
+        $lastName = $user['last_name'];
+        $phoneNumber = $user['phone'];
+        $province = $user['province'];
+    }
+}
 // Check if cart is empty
 if (empty($_SESSION['cart'])) {
     $cartErr = "Your cart is empty. Please add items before checking out.";
     return;
 }
-
-require 'Shoes.php';
-require 'db_conn.php';
-require 'Order.php';
-require 'OrderItem.php';
-
-$db = new DatabaseConnection();
-$shoes = new Shoes($db);
 
 // Calculate total price of items in the cart 
 $total_price = 0;
@@ -93,11 +106,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $city = trim($_POST["city"]);
     }
 
-    // Validate state
-    if (empty(trim($_POST["state"]))) {
-        $stateErr = "Please enter your State.";
+    // Validate province
+    if (empty(trim($_POST["province"]))) {
+        $provinceErr = "Please select your Province.";
     } else {
-        $state = trim($_POST["state"]);
+        $province = trim($_POST["province"]);
     }
 
     // Validate zip
@@ -176,9 +189,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <span><?php echo $cityErr; ?></span>
     </div>
     <div>
-        <label>State</label>
-        <input type="text" name="state" value="<?php echo $state; ?>">
-        <span><?php echo $stateErr; ?></span>
+    <div>
+        <label>Province</label>
+        <select name="province">
+        <option value="AB" <?php echo $province == 'AB' ? 'selected' : ''; ?>>Alberta</option>
+        <option value="BC" <?php echo $province == 'BC' ? 'selected' : ''; ?>>British Columbia</option>
+        <option value="MB" <?php echo $province == 'MB' ? 'selected' : ''; ?>>Manitoba</option>
+        <option value="NB" <?php echo $province == 'NB' ? 'selected' : ''; ?>>New Brunswick</option>
+        <option value="NL" <?php echo $province == 'NL' ? 'selected' : ''; ?>>Newfoundland and Labrador</option>
+        <option value="NS" <?php echo $province == 'NS' ? 'selected' : ''; ?>>Nova Scotia</option>
+        <option value="ON" <?php echo $province == 'ON' ? 'selected' : ''; ?>>Ontario</option>
+        <option value="PE" <?php echo $province == 'PE' ? 'selected' : ''; ?>>Prince Edward Island</option>
+        <option value="QC" <?php echo $province == 'QC' ? 'selected' : ''; ?>>Quebec</option>
+        <option value="SK" <?php echo $province == 'SK' ? 'selected' : ''; ?>>Saskatchewan</option>
+    </select>
+        <span><?php echo $provinceErr; ?></span>
     </div>
     <div>
         <label>Zip</label>
