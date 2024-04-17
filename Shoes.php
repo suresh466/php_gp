@@ -102,8 +102,7 @@ class Shoes
         $query = "DELETE FROM shoes WHERE shoe_id = ?";
         $stmt = mysqli_prepare($this->db->get_dbc(), $query);
         mysqli_stmt_bind_param($stmt, 's', $shoe_id_clean);
-        mysqli_stmt_execute($stmt);
-        $result = mysqli_stmt_get_result($stmt);
+        $result = mysqli_stmt_execute($stmt);
         return $result;
     }
 }
