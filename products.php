@@ -1,4 +1,6 @@
 <?php
+include 'navbar.php';
+
 session_start(); // start the session if it hasn't been started yet
 
 require 'db_conn.php';

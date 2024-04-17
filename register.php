@@ -1,4 +1,6 @@
 <?php
+include 'navbar.php';
+
 session_start();
 
 require 'db_conn.php';
