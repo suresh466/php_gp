@@ -38,8 +38,8 @@ function validate_form($form_data)
     if (empty($size)) {
         $errors[] = "Size is required";
     } else {
-        if (!is_string($size)) {
-            $errors[] = "Size can only be a string";
+        if (!filter_var($size, FILTER_VALIDATE_INT)) {
+            $errors[] = "Size must be an integer";
         }
     }
 
@@ -75,7 +75,6 @@ function is_text_only($input)
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $errors = validate_form($_POST);
-
     if (!empty($errors)) {
         foreach ($errors as $error) {
             echo "<p class='error'>$error</p>";
@@ -93,16 +92,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         header('Location: products_details.php');
         exit;
     }
-} else if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-    if (!isset($_GET['id'])) {
-        echo "<p class='error'>Error! Shoe Id not found.</p>";
-        exit;
-    } else {
-        $id = $_GET['id'];
-        $result = $shoes->get_shoe_by_id($id);
-        $shoe = mysqli_fetch_assoc($result);
-    }
+}
+
+if (!isset($_GET['id']) && !isset($_POST['id'])) {
+    echo "<p class='error'>Error! Shoe Id not found.</p>";
+    exit;
 } else {
+    $id = $_SERVER['REQUEST_METHOD'] == 'POST' ? $_POST['id'] : $_GET['id'];
+    $result = $shoes->get_shoe_by_id($id);
+    $shoe = $result->fetch_assoc();
+}
+
+if ($_SERVER['REQUEST_METHOD'] != 'GET' && $_SERVER['REQUEST_METHOD'] != 'POST') {
     echo "The script only works with get and post requests.";
 }
 ?>
