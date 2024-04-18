@@ -28,7 +28,7 @@ $pdf->Cell(0,10,'User Details:',0,1);
 $pdf->Cell(0,10,'Name: ' . $user_row['first_name'] . ' ' . $user_row['last_name'],0,1);
 $pdf->Cell(0,10,'Email: ' . $user_row['email'],0,1);
 $pdf->Cell(0,10,'Phone: ' . $user_row['phone'],0,1);
-$pdf->Cell(0,10,'Province: ' . $user_row['province'],0,1);
+
 $pdf->Ln(); // Add a line break
 
 // Query to fetch order details
