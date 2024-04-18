@@ -1,12 +1,14 @@
 <?php
 require 'db_conn.php';
 require 'Shoes.php';
+require 'Categories.php';
 
 include 'admin_navbar.php';
 
 $db = new DatabaseConnection();
 $shoes = new Shoes($db);
 $results = $shoes->get_shoes();
+$categories = new Categories($db);
 ?>
 
 <!DOCTYPE html>
@@ -39,6 +41,8 @@ $results = $shoes->get_shoes();
             <?php
         
             while ($row = mysqli_fetch_assoc($results)) {
+                $category_result = $categories->get_category_by_id($row['category_id']);
+                $category = mysqli_fetch_assoc($category_result);
                 echo "<tr>";
                 echo "<td>{$row['shoe_id']}</td>";
                 echo "<td>{$row['shoe_name']}</td>";
@@ -46,7 +50,7 @@ $results = $shoes->get_shoes();
                 echo "<td>{$row['shoe_size']}</td>";
                 echo "<td>{$row['shoe_color']}</td>";
                 echo "<td>{$row['shoe_brand']}</td>";
-                echo "<td>{$row['category_id']}</td>";
+                echo "<td>{$category['name']}</td>";
                 echo "<td><a class='action_button' id='edit' href='products_edit.php?id={$row['shoe_id']}'>Edit</a> <a class='action_button' id='delete' href='products_delete.php?id={$row['shoe_id']}'>Delete</a></td>";
                 echo "</tr>";
             }
