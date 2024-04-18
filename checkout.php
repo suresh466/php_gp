@@ -25,7 +25,6 @@ if (!isset($_SESSION['user_id'])) {
     $user = $users->get_user_by_id($_SESSION['user_id']);
     if ($user) {
         $user = $user->fetch_assoc();
-        print_r ($user);
         $firstName = $user['first_name'];
         $lastName = $user['last_name'];
         $phoneNumber = $user['phone'];
