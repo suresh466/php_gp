@@ -94,7 +94,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $result = $shoes->add_shoe($shoe_name, $shoe_price, $shoe_size, $shoe_color, $shoe_brand, $category_id);
 
         if ($result) {
-            header('Location: products_details.php');
+            header('Location: admin.php');
             exit;
         } else {
             $message = "Failed to add shoe.";

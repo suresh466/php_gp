@@ -30,8 +30,8 @@
         echo 'here';
         var_dump($result);
         if ($result) {
-            // if delete is successful redirect to products_details.php
-            header("Location: products_details.php");
+            // if delete is successful redirect to admin.php
+            header("Location: admin.php");
         } else {
             echo "<p class='error'> Error! Shoe not deleted!</p>";
         }

@@ -17,11 +17,5 @@ if (isset($_GET['logout'])) {
 
 <nav>
     <a href="admin.php">Home</a>
-    <a href="products_add.php">Add Products</a>
-    <a href="products_details.php">Products Details</a>
-    <a href="users_add.php">Add Users</a>
-    <a href="users_details.php">Users Details</a>
-    <?php if (isset($_SESSION['user_id'])): ?>
-        <a href="?logout">Logout</a>
-    <?php endif; ?>
+    <a href="products_add.php">Add</a>
 </nav>

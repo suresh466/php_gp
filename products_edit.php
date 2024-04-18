@@ -89,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $category_id = $_POST['category_id'];
 
         $shoes->update_shoe_by_id($id, $name, $price, $size, $color, $brand, $category_id);
-        header('Location: products_details.php');
+        header('Location: admin.php');
         exit;
     }
 }
