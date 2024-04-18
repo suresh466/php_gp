@@ -2,6 +2,7 @@
 require('db_conn.php');
 require('Shoes.php');
 require('Categories.php');
+include 'admin_navbar.php';
 
 $db = new DatabaseConnection();
 $shoes = new Shoes($db);
@@ -107,31 +108,51 @@ if ($_SERVER['REQUEST_METHOD'] != 'GET' && $_SERVER['REQUEST_METHOD'] != 'POST')
     echo "The script only works with get and post requests.";
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Shoe</title>
-    <link rel="stylesheet" href="styles.css">
+
 </head>
 <body>
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Edit Product</h2>
     <form method="POST">
         <input type="hidden" name="id" value="<?php echo $shoe['shoe_id']; ?>">
-        <label>Name: <input type="text" name="name" value="<?php echo $shoe['shoe_name']; ?>"></label>
-        <label>Price: <input type="text" name="price" value="<?php echo $shoe['shoe_price']; ?>"></label>
-        <label>Size: <input type="text" name="size" value="<?php echo $shoe['shoe_size']; ?>"></label>
-        <label>Color: <input type="text" name="color" value="<?php echo $shoe['shoe_color']; ?>"></label>
-        <label>Brand: <input type="text" name="brand" value="<?php echo $shoe['shoe_brand']; ?>"></label>
-        <label>Category: 
-            <select name="category_id"> 
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="name" name="name" value="<?php echo $shoe['shoe_name']; ?>">
+        </div>
+        <div class="form-group">
+            <label for="price">Price:</label>
+            <input type="text" class="form-control" id="price" name="price" value="<?php echo $shoe['shoe_price']; ?>">
+        </div>
+        <div class="form-group">
+            <label for="size">Size:</label>
+            <input type="text" class="form-control" id="size" name="size" value="<?php echo $shoe['shoe_size']; ?>">
+        </div>
+        <div class="form-group">
+            <label for="color">Color:</label>
+            <input type="text" class="form-control" id="color" name="color" value="<?php echo $shoe['shoe_color']; ?>">
+        </div>
+        <div class="form-group">
+            <label for="brand">Brand:</label>
+            <input type="text" class="form-control" id="brand" name="brand" value="<?php echo $shoe['shoe_brand']; ?>">
+        </div>
+        <div class="form-group">
+            <label for="category_id">Category:</label>
+            <select class="form-control" id="category_id" name="category_id">
                 <?php while ($row = mysqli_fetch_assoc($categories_list)) : ?>
                     <option value="<?php echo $row['category_id']; ?>" <?php echo $row['category_id'] == $shoe['category_id'] ? 'selected' : ''; ?>><?php echo $row['name']; ?></option>
                 <?php endwhile; ?>
             </select>
-        </label>
-        <input type="submit" value="Update">
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
     </form>
+</div>
+
 </body>
 </html>
