@@ -25,6 +25,7 @@ if (!isset($_SESSION['user_id'])) {
     $user = $users->get_user_by_id($_SESSION['user_id']);
     if ($user) {
         $user = $user->fetch_assoc();
+        print_r ($user);
         $firstName = $user['first_name'];
         $lastName = $user['last_name'];
         $phoneNumber = $user['phone'];
@@ -47,7 +48,6 @@ foreach ($_SESSION['cart'] as $shoe_id) {
 
 // Processing form data when form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
     // Validate firstName
     if (empty(trim($_POST["firstName"]))) {
         $firstNameErr = "Please enter your First Name.";
@@ -211,18 +211,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="form-group row">
             <label for="province" class="col-sm-3 col-form-label">Province</label>
             <div class="col-sm-9">
-                <select class="form-control" id="province" name="province">
-                    <option value="">Select Province</option>
-                    <option value="AB">Alberta</option>
-                    <option value="BC">British Columbia</option>
-                    <option value="MB">Manitoba</option>
-                    <option value="NB">New Brunswick</option>
-                    <option value="NL">Newfoundland and Labrador</option>
-                    <option value="NS">Nova Scotia</option>
-                    <option value="ON">Ontario</option>
-                    <option value="PE">Prince Edward Island</option>
-                    <option value="QC">Quebec</option>
-                    <option value="SK">Saskatchewan</option>
+                <select class="form-control" id="province" value="<?php echo $province; ?>" name="province">
+                <option value="">Select Province</option>
+            <option value="AB" <?php if ($province == "AB") echo "selected"; ?>>Alberta</option>
+            <option value="BC" <?php if ($province == "BC") echo "selected"; ?>>British Columbia</option>
+            <option value="MB" <?php if ($province == "MB") echo "selected"; ?>>Manitoba</option>
+            <option value="NB" <?php if ($province == "NB") echo "selected"; ?>>New Brunswick</option>
+            <option value="NL" <?php if ($province == "NL") echo "selected"; ?>>Newfoundland and Labrador</option>
+            <option value="NS" <?php if ($province == "NS") echo "selected"; ?>>Nova Scotia</option>
+            <option value="ON" <?php if ($province == "ON") echo "selected"; ?>>Ontario</option>
+            <option value="PE" <?php if ($province == "PE") echo "selected"; ?>>Prince Edward Island</option>
+            <option value="QC" <?php if ($province == "QC") echo "selected"; ?>>Quebec</option>
+            <option value="SK" <?php if ($province == "SK") echo "selected"; ?>>Saskatchewan</option>
                 </select>
                 <span class="text-danger"><?php echo $provinceErr; ?></span>
             </div>
