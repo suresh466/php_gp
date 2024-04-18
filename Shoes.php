@@ -75,7 +75,7 @@ class Shoes
         $shoe_brand_clean = $this->db->prepare_string($shoe_brand);
         $category_id_clean = $this->db->prepare_string($category_id);
 
-        $query = "UPDATE shoes SET shoe_name = ?, shoe_price = ?, shoe_size = ?, shoe_color = ?, shoe_brand = ?, category_id_clean = ? WHERE  shoe_id = ?;";
+        $query = "UPDATE shoes SET shoe_name = ?, shoe_price = ?, shoe_size = ?, shoe_color = ?, shoe_brand = ?, category_id = ? WHERE  shoe_id = ?;";
 
         $stmt = mysqli_prepare($this->db->get_dbc(), $query);
 
@@ -87,8 +87,8 @@ class Shoes
             $shoe_size_clean,
             $shoe_color_clean,
             $shoe_brand_clean,
-            $shoe_id_clean,
-            $category_id_clean
+            $category_id_clean,
+            $shoe_id_clean
         );
 
         $result = mysqli_stmt_execute($stmt);
