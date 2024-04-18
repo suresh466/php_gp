@@ -20,6 +20,7 @@ function validate_form($form_data)
     $color = $form_data['color'];
     $brand = $form_data['brand'];
     $category_id = $form_data['category_id'];
+    $picture = $form_data['picture'];
 
     $errors = [];
 
@@ -90,8 +91,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $shoe_color = $_POST['color'];
         $shoe_brand = $_POST['brand'];
         $category_id = $_POST['category_id'];
+        $picture = $_POST['picture'];
 
-        $result = $shoes->add_shoe($shoe_name, $shoe_price, $shoe_size, $shoe_color, $shoe_brand, $category_id);
+        $result = $shoes->add_shoe($shoe_name, $shoe_price, $shoe_size, $shoe_color, $shoe_brand, $category_id, $picture);
 
         if ($result) {
             header('Location: admin.php');
@@ -148,6 +150,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <option value="<?php echo $row['category_id']; ?>" <?php echo $row['category_id'] == (isset($_POST['category_id']) ? $_POST['category_id'] : '') ? 'selected' : ''; ?>><?php echo $row['name']; ?></option>
                     <?php endwhile; ?>
                 </select>
+            </div>
+            <div class="form-group">
+                <label for="picture">Picture:</label>
+                <input type="text" class="form-control" id="picture" name="picture"
+                    value="<?php echo isset($_POST['picture']) ? $_POST['picture'] : ''; ?>">
             </div>
             <button type="submit" class="btn btn-primary">Add</button>
         </form>
