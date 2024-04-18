@@ -154,71 +154,87 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
-<!-- HTML form -->
-<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-    <p><?php echo $cartErr; ?></p>
-    <div>
-        <label>First Name</label>
-        <input type="text" name="firstName" value="<?php echo $firstName; ?>">
-        <span><?php echo $firstNameErr; ?></span>
+<div class="container">
+        <h2 class="text-center mb-4">Checkout</h2>
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+            <div class="form-group row">
+                <label for="firstName" class="col-sm-3 col-form-label">First Name</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" id="firstName" name="firstName" value="<?php echo $firstName; ?>">
+                    <span class="text-danger"><?php echo $firstNameErr; ?></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="lastName" class="col-sm-3 col-form-label">Last Name</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" id="lastName" name="lastName" value="<?php echo $lastName; ?>">
+                    <span class="text-danger"><?php echo $lastNameErr; ?></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="phoneNumber" class="col-sm-3 col-form-label">Phone Number</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" value="<?php echo $phoneNumber; ?>">
+                    <span class="text-danger"><?php echo $phoneNumberErr; ?></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="creditCardNumber" class="col-sm-3 col-form-label">Credit Card Number</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" id="creditCardNumber" name="creditCardNumber" value="<?php echo $creditCardNumber; ?>">
+                    <span class="text-danger"><?php echo $creditCardNumberErr; ?></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="cvv" class="col-sm-3 col-form-label">CVV</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" id="cvv" name="cvv" value="<?php echo $cvv; ?>">
+                    <span class="text-danger"><?php echo $cvvErr; ?></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="street" class="col-sm-3 col-form-label">Street</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" id="street" name="street" value="<?php echo $street; ?>">
+                    <span class="text-danger"><?php echo $streetErr; ?></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="city" class="col-sm-3 col-form-label">City</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" id="city" name="city" value="<?php echo $city; ?>">
+                    <span class="text-danger"><?php echo $cityErr; ?></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="province" class="col-sm-3 col-form-label">Province</label>
+                <div class="col-sm-9">
+                    <select class="form-control" id="province" name="province">
+                        <option value="">Select Province</option>
+                        <option value="AB" <?php echo $province == 'AB' ? 'selected' : ''; ?>>Alberta</option>
+                        <option value="BC" <?php echo $province == 'BC' ? 'selected' : ''; ?>>British Columbia</option>
+                        <!-- Add other options for provinces -->
+                    </select>
+                    <span class="text-danger"><?php echo $provinceErr; ?></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="zip" class="col-sm-3 col-form-label">Zip</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" id="zip" name="zip" value="<?php echo $zip; ?>">
+                    <span class="text-danger"><?php echo $zipErr; ?></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label"><b>Total Price</b></label>
+                <div class="col-sm-9 pt-2">
+                    <b><span><?php echo $total_price; ?></span></b>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-9 offset-sm-3">
+                    <button type="submit" class="btn btn-primary">Checkout</button>
+                </div>
+            </div>
+        </form>
     </div>
-    <div>
-        <label>Last Name</label>
-        <input type="text" name="lastName" value="<?php echo $lastName; ?>">
-        <span><?php echo $lastNameErr; ?></span>
-    </div>
-    <div>
-        <label>Phone Number</label>
-        <input type="text" name="phoneNumber" value="<?php echo $phoneNumber; ?>">
-        <span><?php echo $phoneNumberErr; ?></span>
-    </div>
-    <div>
-        <label>Credit Card Number</label>
-        <input type="text" name="creditCardNumber" value="<?php echo $creditCardNumber; ?>">
-        <span><?php echo $creditCardNumberErr; ?></span>
-    </div>
-    <div>
-        <label>CVV</label>
-        <input type="text" name="cvv" value="<?php echo $cvv; ?>">
-        <span><?php echo $cvvErr; ?></span>
-    </div>
-    <div>
-        <label>Street</label>
-        <input type="text" name="street" value="<?php echo $street; ?>">
-        <span><?php echo $streetErr; ?></span>
-    </div>
-    <div>
-        <label>City</label>
-        <input type="text" name="city" value="<?php echo $city; ?>">
-        <span><?php echo $cityErr; ?></span>
-    </div>
-    <div>
-    <div>
-        <label>Province</label>
-        <select name="province">
-        <option value="AB" <?php echo $province == 'AB' ? 'selected' : ''; ?>>Alberta</option>
-        <option value="BC" <?php echo $province == 'BC' ? 'selected' : ''; ?>>British Columbia</option>
-        <option value="MB" <?php echo $province == 'MB' ? 'selected' : ''; ?>>Manitoba</option>
-        <option value="NB" <?php echo $province == 'NB' ? 'selected' : ''; ?>>New Brunswick</option>
-        <option value="NL" <?php echo $province == 'NL' ? 'selected' : ''; ?>>Newfoundland and Labrador</option>
-        <option value="NS" <?php echo $province == 'NS' ? 'selected' : ''; ?>>Nova Scotia</option>
-        <option value="ON" <?php echo $province == 'ON' ? 'selected' : ''; ?>>Ontario</option>
-        <option value="PE" <?php echo $province == 'PE' ? 'selected' : ''; ?>>Prince Edward Island</option>
-        <option value="QC" <?php echo $province == 'QC' ? 'selected' : ''; ?>>Quebec</option>
-        <option value="SK" <?php echo $province == 'SK' ? 'selected' : ''; ?>>Saskatchewan</option>
-    </select>
-        <span><?php echo $provinceErr; ?></span>
-    </div>
-    <div>
-        <label>Zip</label>
-        <input type="text" name="zip" value="<?php echo $zip; ?>">
-        <span><?php echo $zipErr; ?></span>
-    </div>
-    <div>
-        <label>Total Price</label>
-        <p><?php echo $total_price; ?></p>
-    </div>
-    <div>
-        <input type="submit" value="Checkout">
-    </div>
-</form>
