@@ -20,8 +20,7 @@ $cartErr = $firstNameErr = $lastNameErr = $phoneNumberErr = $creditCardNumberErr
 if (!isset($_SESSION['user_id'])) {
     header("Location: register.php");
     exit;
-}
-else {
+} else {
     $users = new Users($db);
     $user = $users->get_user_by_id($_SESSION['user_id']);
     if ($user) {
@@ -135,7 +134,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Calculate total price of items in the cart
 
         // Add order
-        $user_id = $_SESSION['user_id']; 
+        $user_id = $_SESSION['user_id'];
         $order->add_order($user_id, $total_price);
 
         // Get the id of the newly created order
@@ -149,92 +148,102 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Clear the cart
         $_SESSION['cart'] = array();
         header("Location: confirmation.php");
-    exit;
+        exit;
     }
 }
 ?>
 
 <div class="container">
-        <h2 class="text-center mb-4">Checkout</h2>
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-            <div class="form-group row">
-                <label for="firstName" class="col-sm-3 col-form-label">First Name</label>
-                <div class="col-sm-9">
-                    <input type="text" class="form-control" id="firstName" name="firstName" value="<?php echo $firstName; ?>">
-                    <span class="text-danger"><?php echo $firstNameErr; ?></span>
-                </div>
+    <h2 class="text-center mb-4">Checkout</h2>
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+        <div class="form-group row">
+            <label for="firstName" class="col-sm-3 col-form-label">First Name</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="firstName" name="firstName"
+                    value="<?php echo $firstName; ?>">
+                <span class="text-danger"><?php echo $firstNameErr; ?></span>
             </div>
-            <div class="form-group row">
-                <label for="lastName" class="col-sm-3 col-form-label">Last Name</label>
-                <div class="col-sm-9">
-                    <input type="text" class="form-control" id="lastName" name="lastName" value="<?php echo $lastName; ?>">
-                    <span class="text-danger"><?php echo $lastNameErr; ?></span>
-                </div>
+        </div>
+        <div class="form-group row">
+            <label for="lastName" class="col-sm-3 col-form-label">Last Name</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="lastName" name="lastName" value="<?php echo $lastName; ?>">
+                <span class="text-danger"><?php echo $lastNameErr; ?></span>
             </div>
-            <div class="form-group row">
-                <label for="phoneNumber" class="col-sm-3 col-form-label">Phone Number</label>
-                <div class="col-sm-9">
-                    <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" value="<?php echo $phoneNumber; ?>">
-                    <span class="text-danger"><?php echo $phoneNumberErr; ?></span>
-                </div>
+        </div>
+        <div class="form-group row">
+            <label for="phoneNumber" class="col-sm-3 col-form-label">Phone Number</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="phoneNumber" name="phoneNumber"
+                    value="<?php echo $phoneNumber; ?>">
+                <span class="text-danger"><?php echo $phoneNumberErr; ?></span>
             </div>
-            <div class="form-group row">
-                <label for="creditCardNumber" class="col-sm-3 col-form-label">Credit Card Number</label>
-                <div class="col-sm-9">
-                    <input type="text" class="form-control" id="creditCardNumber" name="creditCardNumber" value="<?php echo $creditCardNumber; ?>">
-                    <span class="text-danger"><?php echo $creditCardNumberErr; ?></span>
-                </div>
+        </div>
+        <div class="form-group row">
+            <label for="creditCardNumber" class="col-sm-3 col-form-label">Credit Card Number</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="creditCardNumber" name="creditCardNumber"
+                    value="<?php echo $creditCardNumber; ?>">
+                <span class="text-danger"><?php echo $creditCardNumberErr; ?></span>
             </div>
-            <div class="form-group row">
-                <label for="cvv" class="col-sm-3 col-form-label">CVV</label>
-                <div class="col-sm-9">
-                    <input type="text" class="form-control" id="cvv" name="cvv" value="<?php echo $cvv; ?>">
-                    <span class="text-danger"><?php echo $cvvErr; ?></span>
-                </div>
+        </div>
+        <div class="form-group row">
+            <label for="cvv" class="col-sm-3 col-form-label">CVV</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="cvv" name="cvv" value="<?php echo $cvv; ?>">
+                <span class="text-danger"><?php echo $cvvErr; ?></span>
             </div>
-            <div class="form-group row">
-                <label for="street" class="col-sm-3 col-form-label">Street</label>
-                <div class="col-sm-9">
-                    <input type="text" class="form-control" id="street" name="street" value="<?php echo $street; ?>">
-                    <span class="text-danger"><?php echo $streetErr; ?></span>
-                </div>
+        </div>
+        <div class="form-group row">
+            <label for="street" class="col-sm-3 col-form-label">Street</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="street" name="street" value="<?php echo $street; ?>">
+                <span class="text-danger"><?php echo $streetErr; ?></span>
             </div>
-            <div class="form-group row">
-                <label for="city" class="col-sm-3 col-form-label">City</label>
-                <div class="col-sm-9">
-                    <input type="text" class="form-control" id="city" name="city" value="<?php echo $city; ?>">
-                    <span class="text-danger"><?php echo $cityErr; ?></span>
-                </div>
+        </div>
+        <div class="form-group row">
+            <label for="city" class="col-sm-3 col-form-label">City</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="city" name="city" value="<?php echo $city; ?>">
+                <span class="text-danger"><?php echo $cityErr; ?></span>
             </div>
-            <div class="form-group row">
-                <label for="province" class="col-sm-3 col-form-label">Province</label>
-                <div class="col-sm-9">
-                    <select class="form-control" id="province" name="province">
-                        <option value="">Select Province</option>
-                        <option value="AB" <?php echo $province == 'AB' ? 'selected' : ''; ?>>Alberta</option>
-                        <option value="BC" <?php echo $province == 'BC' ? 'selected' : ''; ?>>British Columbia</option>
-                        <!-- Add other options for provinces -->
-                    </select>
-                    <span class="text-danger"><?php echo $provinceErr; ?></span>
-                </div>
+        </div>
+        <div class="form-group row">
+            <label for="province" class="col-sm-3 col-form-label">Province</label>
+            <div class="col-sm-9">
+                <select class="form-control" id="province" name="province">
+                    <option value="">Select Province</option>
+                    <option value="AB">Alberta</option>
+                    <option value="BC">British Columbia</option>
+                    <option value="MB">Manitoba</option>
+                    <option value="NB">New Brunswick</option>
+                    <option value="NL">Newfoundland and Labrador</option>
+                    <option value="NS">Nova Scotia</option>
+                    <option value="ON">Ontario</option>
+                    <option value="PE">Prince Edward Island</option>
+                    <option value="QC">Quebec</option>
+                    <option value="SK">Saskatchewan</option>
+                </select>
+                <span class="text-danger"><?php echo $provinceErr; ?></span>
             </div>
-            <div class="form-group row">
-                <label for="zip" class="col-sm-3 col-form-label">Zip</label>
-                <div class="col-sm-9">
-                    <input type="text" class="form-control" id="zip" name="zip" value="<?php echo $zip; ?>">
-                    <span class="text-danger"><?php echo $zipErr; ?></span>
-                </div>
+        </div>
+        <div class="form-group row">
+            <label for="zip" class="col-sm-3 col-form-label">Zip</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="zip" name="zip" value="<?php echo $zip; ?>">
+                <span class="text-danger"><?php echo $zipErr; ?></span>
             </div>
-            <div class="form-group row">
-                <label class="col-sm-3 col-form-label"><b>Total Price</b></label>
-                <div class="col-sm-9 pt-2">
-                    <b><span><?php echo $total_price; ?></span></b>
-                </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label"><b>Total Price</b></label>
+            <div class="col-sm-9 pt-2">
+                <b><span><?php echo $total_price; ?></span></b>
             </div>
-            <div class="form-group row">
-                <div class="col-sm-9 offset-sm-3">
-                    <button type="submit" class="btn btn-primary">Checkout</button>
-                </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-9 offset-sm-3">
+                <button type="submit" class="btn btn-primary">Checkout</button>
             </div>
-        </form>
-    </div>
+        </div>
+    </form>
+</div>

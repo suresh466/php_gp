@@ -9,7 +9,7 @@ class Shoes
         $this->db = $db;
     }
 
-    function add_shoe($shoe_name, $shoe_price, $shoe_size, $shoe_color, $shoe_brand, $category_id)
+    function add_shoe($shoe_name, $shoe_price, $shoe_size, $shoe_color, $shoe_brand, $category_id, $picture)
     {
         $shoe_name_clean = $this->db->prepare_string($shoe_name);
         $shoe_price_clean = $this->db->prepare_string($shoe_price);
@@ -17,20 +17,22 @@ class Shoes
         $shoe_color_clean = $this->db->prepare_string($shoe_color);
         $shoe_brand_clean = $this->db->prepare_string($shoe_brand);
         $category_id_clean = $this->db->prepare_string($category_id);
+        $picture_clean = $this->db->prepare_string($picture);
 
-        $query = "INSERT INTO shoes(shoe_name, shoe_price, shoe_size, shoe_color, shoe_brand, category_id) VALUES (?,?,?,?,?,?)";
+        $query = "INSERT INTO shoes(shoe_name, shoe_price, shoe_size, shoe_color, shoe_brand, category_id, picture) VALUES (?,?,?,?,?,?,?)";
 
         $stmt = mysqli_prepare($this->db->get_dbc(), $query);
 
         mysqli_stmt_bind_param(
             $stmt,
-            'ssssss',
+            'sssssss',
             $shoe_name_clean,
             $shoe_price_clean,
             $shoe_size_clean,
             $shoe_color_clean,
             $shoe_brand_clean,
             $category_id_clean,
+            $picture_clean,
         );
 
         $result = mysqli_stmt_execute($stmt);
@@ -64,7 +66,7 @@ class Shoes
         return $result;
     }
 
-    function update_shoe_by_id($shoe_id, $shoe_name, $shoe_price, $shoe_size, $shoe_color, $shoe_brand, $category_id)
+    function update_shoe_by_id($shoe_id, $shoe_name, $shoe_price, $shoe_size, $shoe_color, $shoe_brand, $category_id, $picture)
     {
 
         $shoe_id_clean = $this->db->prepare_string($shoe_id);
@@ -74,20 +76,22 @@ class Shoes
         $shoe_color_clean = $this->db->prepare_string($shoe_color);
         $shoe_brand_clean = $this->db->prepare_string($shoe_brand);
         $category_id_clean = $this->db->prepare_string($category_id);
+        $picture_clean = $this->db->prepare_string($picture);
 
-        $query = "UPDATE shoes SET shoe_name = ?, shoe_price = ?, shoe_size = ?, shoe_color = ?, shoe_brand = ?, category_id = ? WHERE  shoe_id = ?;";
+        $query = "UPDATE shoes SET shoe_name = ?, shoe_price = ?, shoe_size = ?, shoe_color = ?, shoe_brand = ?, category_id = ?, picture = ? WHERE  shoe_id = ?;";
 
         $stmt = mysqli_prepare($this->db->get_dbc(), $query);
 
         mysqli_stmt_bind_param(
             $stmt,
-            'sssssss',
+            'ssssssss',
             $shoe_name_clean,
             $shoe_price_clean,
             $shoe_size_clean,
             $shoe_color_clean,
             $shoe_brand_clean,
             $category_id_clean,
+            $picture_clean,
             $shoe_id_clean
         );
 

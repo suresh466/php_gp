@@ -20,6 +20,7 @@ CREATE TABLE shoes (
     shoe_color VARCHAR(50) NOT NULL,
     shoe_brand VARCHAR(255) NOT NULL,
 	category_id INT NOT NULL,
+    picture VARCHAR(255),
 	FOREIGN KEY (category_id) REFERENCES categories(category_id) ON DELETE CASCADE
 );
 
@@ -27,16 +28,14 @@ CREATE TABLE shoes (
 INSERT INTO categories (name) VALUES ('cat1'), ('cat2'), ('cat3');
 
 -- insert sample products into the products table
-INSERT INTO shoes (shoe_name, shoe_price, shoe_size, shoe_color, shoe_brand, category_id)
+INSERT INTO shoes (shoe_name, shoe_price, shoe_size, shoe_color, shoe_brand, category_id, picture)
 VALUES 
-('Antique Shoe 1', 120.00, 42, 'Black', 'Brand 1', 1),
-('Antique Shoe 2', 150.00, 43, 'Brown', 'Brand 2', 1),
-('Antique Shoe 3', 200.00, 44, 'White', 'Brand 3', 2),
-('Antique Shoe 4', 250.00, 45, 'Blue', 'Brand 4', 2),
-('Antique Shoe 5', 300.00, 46, 'Red', 'Brand 5', 3),
-('Antique Shoe 6', 350.00, 46, 'Yellow', 'Brand 6', 3);
-
-
+('Antique Shoe 1', 120.00, 42, 'Black', 'Brand 1', 1, 'placeholder'),
+('Antique Shoe 2', 150.00, 43, 'Brown', 'Brand 2', 1, 'placeholder'),
+('Antique Shoe 3', 200.00, 44, 'White', 'Brand 3', 2, 'placeholder'),
+('Antique Shoe 4', 250.00, 45, 'Blue', 'Brand 4', 2, 'placeholder'),
+('Antique Shoe 5', 300.00, 46, 'Red', 'Brand 5', 3, 'placeholder'),
+('Antique Shoe 6', 350.00, 46, 'Yellow', 'Brand 6', 3, 'placeholder');
 
 -- Create the 'users' table with new structure
 DROP TABLE IF EXISTS users;
@@ -52,8 +51,8 @@ CREATE TABLE users (
 
 -- Insert sample users into the 'users' table
 INSERT INTO users (first_name, last_name, email, phone, province, user_type) VALUES
-('John', 'Doe', 'john.doe@example.com', '123-456-7890', 'ON', 'customer'),
-('Jane', 'Smith', 'jane.smith@example.com', '987-654-3210', 'BC', 'customer');
+('suresh', 'Thagunna', 'suresh.thagunna@example.com', '123-456-7890', 'ON', 'customer'),
+('sumit', 'Subedhi', 'sumit.subedi@example.com', '987-654-3210', 'BC', 'customer');
 
 -- Create the 'orders' table
 DROP TABLE IF EXISTS orders;

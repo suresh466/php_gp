@@ -70,58 +70,62 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
-<!-- HTML form --> <div class="container">
-        <div class="row justify-content-center mt-5">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h2 class="text-center">User Registration</h2>
-                    </div>
-                    <div class="card-body">
-                        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-                            <div class="form-group">
-                                <label for="name">First Name</label>
-                                <input type="text" class="form-control" id="name" name="name" value="<?php echo $name; ?>">
-                                <span class="text-danger"><?php echo $nameErr; ?></span>
-                            </div>
-                            <div class="form-group">
-                                <label for="lname">Last Name</label>
-                                <input type="text" class="form-control" id="lname" name="lname" value="<?php echo $lname; ?>">
-                                <span class="text-danger"><?php echo $lnameErr; ?></span>
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="email" class="form-control" id="email" name="email" value="<?php echo $email; ?>">
-                                <span class="text-danger"><?php echo $emailErr; ?></span>
-                            </div>
-                            <div class="form-group">
-                                <label for="phone">Phone</label>
-                                <input type="text" class="form-control" id="phone" name="phone" value="<?php echo $phone; ?>">
-                                <span class="text-danger"><?php echo $phoneErr; ?></span>
-                            </div>
-                            <div class="form-group">
-                                <label for="province">Province</label>
-                                <select class="form-control" id="province" name="province">
-                                    <option value="">Select Province</option>
-                                    <option value="AB">Alberta</option>
-                                    <option value="BC">British Columbia</option>
-                                    <option value="MB">Manitoba</option>
-            <option value="NB">New Brunswick</option>
-            <option value="NL">Newfoundland and Labrador</option>
-            <option value="NS">Nova Scotia</option>
-            <option value="ON">Ontario</option>
-            <option value="PE">Prince Edward Island</option>
-            <option value="QC">Quebec</option>
-            <option value="SK">Saskatchewan</option>
-                                </select>
-                                <span class="text-danger"><?php echo $provinceErr; ?></span>
-                            </div>
-                            <div class="text-center">
-                                <button type="submit" class="btn btn-primary">Register</button>
-                            </div>
-                        </form>
-                    </div>
+<!-- HTML form -->
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="text-center">User Registration</h2>
+                </div>
+                <div class="card-body">
+                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                        <div class="form-group">
+                            <label for="name">First Name</label>
+                            <input type="text" class="form-control" id="name" name="name" value="<?php echo $name; ?>">
+                            <span class="text-danger"><?php echo $nameErr; ?></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="lname">Last Name</label>
+                            <input type="text" class="form-control" id="lname" name="lname"
+                                value="<?php echo $lname; ?>">
+                            <span class="text-danger"><?php echo $lnameErr; ?></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" name="email"
+                                value="<?php echo $email; ?>">
+                            <span class="text-danger"><?php echo $emailErr; ?></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone</label>
+                            <input type="text" class="form-control" id="phone" name="phone"
+                                value="<?php echo $phone; ?>">
+                            <span class="text-danger"><?php echo $phoneErr; ?></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="province">Province</label>
+                            <select class="form-control" id="province" name="province">
+                                <option value="">Select Province</option>
+                                <option value="AB">Alberta</option>
+                                <option value="BC">British Columbia</option>
+                                <option value="MB">Manitoba</option>
+                                <option value="NB">New Brunswick</option>
+                                <option value="NL">Newfoundland and Labrador</option>
+                                <option value="NS">Nova Scotia</option>
+                                <option value="ON">Ontario</option>
+                                <option value="PE">Prince Edward Island</option>
+                                <option value="QC">Quebec</option>
+                                <option value="SK">Saskatchewan</option>
+                            </select>
+                            <span class="text-danger"><?php echo $provinceErr; ?></span>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Register</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+</div>
