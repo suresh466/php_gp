@@ -102,7 +102,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html>
 
@@ -111,25 +110,48 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-    <form method="POST">
-        <label>Name: <input type="text" name="name"
-                value="<?php echo isset($_POST['name']) ? $_POST['name'] : ''; ?>"></label>
-        <label>Price: <input type="text" name="price"
-                value="<?php echo isset($_POST['price']) ? $_POST['price'] : ''; ?>"></label>
-        <label>Size: <input type="text" name="size"
-                value="<?php echo isset($_POST['size']) ? $_POST['size'] : ''; ?>"></label>
-        <label>Color: <input type="text" name="color"
-                value="<?php echo isset($_POST['color']) ? $_POST['color'] : ''; ?>"></label>
-        <label>Brand: <input type="text" name="brand"
-                value="<?php echo isset($_POST['brand']) ? $_POST['brand'] : ''; ?>"></label>
-        <label>Category:
-            <select name="category_id">
-                <?php while ($row = mysqli_fetch_assoc($categories_list)): ?>
-                    <option value="<?php echo $row['category_id']; ?>" <?php echo $row['category_id'] == (isset($_POST['category_id']) ? $_POST['category_id'] : '') ? 'selected' : ''; ?>><?php echo $row['name']; ?></option>
-                <?php endwhile; ?>
-            </select>
-        </label>
-        <input type="submit" value="Add">
-    </form>
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Add New Shoe</h2>
+        <?php if (!empty($message)): ?>
+            <div class="alert alert-danger"><?php echo $message; ?></div>
+        <?php endif; ?>
+        <form method="POST">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" class="form-control" id="name" name="name"
+                    value="<?php echo isset($_POST['name']) ? $_POST['name'] : ''; ?>">
+            </div>
+            <div class="form-group">
+                <label for="price">Price:</label>
+                <input type="text" class="form-control" id="price" name="price"
+                    value="<?php echo isset($_POST['price']) ? $_POST['price'] : ''; ?>">
+            </div>
+            <div class="form-group">
+                <label for="size">Size:</label>
+                <input type="text" class="form-control" id="size" name="size"
+                    value="<?php echo isset($_POST['size']) ? $_POST['size'] : ''; ?>">
+            </div>
+            <div class="form-group">
+                <label for="color">Color:</label>
+                <input type="text" class="form-control" id="color" name="color"
+                    value="<?php echo isset($_POST['color']) ? $_POST['color'] : ''; ?>">
+            </div>
+            <div class="form-group">
+                <label for="brand">Brand:</label>
+                <input type="text" class="form-control" id="brand" name="brand"
+                    value="<?php echo isset($_POST['brand']) ? $_POST['brand'] : ''; ?>">
+            </div>
+            <div class="form-group">
+                <label for="category_id">Category:</label>
+                <select class="form-control" id="category_id" name="category_id">
+                    <?php while ($row = mysqli_fetch_assoc($categories_list)): ?>
+                        <option value="<?php echo $row['category_id']; ?>" <?php echo $row['category_id'] == (isset($_POST['category_id']) ? $_POST['category_id'] : '') ? 'selected' : ''; ?>><?php echo $row['name']; ?></option>
+                    <?php endwhile; ?>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Add</button>
+        </form>
+    </div>
 </body>
+
 </html>
