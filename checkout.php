@@ -135,7 +135,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Calculate total price of items in the cart
 
         // Add order
-        $user_id = $_SESSION['user_id']; // Assuming the user id is stored in the session
+        $user_id = $_SESSION['user_id']; 
         $order->add_order($user_id, $total_price);
 
         // Get the id of the newly created order
@@ -148,6 +148,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Clear the cart
         $_SESSION['cart'] = array();
+        header("Location: confirmation.php");
+    exit;
     }
 }
 ?>
