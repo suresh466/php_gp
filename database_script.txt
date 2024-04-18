@@ -25,17 +25,17 @@ CREATE TABLE shoes (
 );
 
 -- Insert sample categories into the 'categories' table
-INSERT INTO categories (name) VALUES ('cat1'), ('cat2'), ('cat3');
+INSERT INTO categories (name) VALUES ('Cowboys'), ('Synthetic'), ('Organic');
 
 -- insert sample products into the products table
 INSERT INTO shoes (shoe_name, shoe_price, shoe_size, shoe_color, shoe_brand, category_id, picture)
 VALUES 
-('Antique Shoe 1', 120.00, 42, 'Black', 'Brand 1', 1, 'placeholder'),
-('Antique Shoe 2', 150.00, 43, 'Brown', 'Brand 2', 1, 'placeholder'),
-('Antique Shoe 3', 200.00, 44, 'White', 'Brand 3', 2, 'placeholder'),
-('Antique Shoe 4', 250.00, 45, 'Blue', 'Brand 4', 2, 'placeholder'),
-('Antique Shoe 5', 300.00, 46, 'Red', 'Brand 5', 3, 'placeholder'),
-('Antique Shoe 6', 350.00, 46, 'Yellow', 'Brand 6', 3, 'placeholder');
+('Goldstar', 120.00, 42, 'Black', 'Oldies', 1, 'image1'),
+('Bronk', 150.00, 43, 'Brown', 'Broody', 1, 'image2'),
+('Donkey', 200.00, 44, 'White', 'Convo', 2, 'image3'),
+('Dongs', 250.00, 45, 'Blue', 'Vango', 2, 'image4'),
+('Walky', 300.00, 46, 'Red', 'Saigon', 3, 'image5'),
+('Heartbeat', 350.00, 46, 'Yellow', 'Shudders', 3, 'image6');
 
 -- Create the 'users' table with new structure
 DROP TABLE IF EXISTS users;
