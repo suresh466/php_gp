@@ -40,7 +40,7 @@ $cart_items = $_SESSION['cart'];
                 <div class="card mb-3">
                     <div class="row no-gutters">
                         <div class="col-md-4">
-                            <img src="product_images/<?php echo $row['image']; ?>" class="card-img" alt="Product Image">
+                            <img src="products/<?php echo $row['picture']; ?>.jpg" class="card-img" alt="Product Image">
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">

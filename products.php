@@ -79,8 +79,8 @@ $categories_result = $categories->get_categories();
             <?php while ($row = mysqli_fetch_assoc($result)): ?>
                 <div class="col-md-4">
                     <div class="card product-card">
-                        <!-- Product Image (Placeholder) -->
-                        <img src="placeholder.jpg" class="card-img-top" alt="Product Image">
+                        <!-- Product Image -->
+                        <img src="products/<?php echo $row['picture']; ?>.jpg" class="card-img-top" alt="Product Image">
                         <div class="card-body">
                             <h5 class="card-title"><?php echo $row['shoe_name']; ?></h5>
                             <p class="card-text">Price: <?php echo $row['shoe_price']; ?></p>
